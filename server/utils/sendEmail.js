@@ -2,12 +2,16 @@ const nodemailer = require('nodemailer');
 
 const sendEmail = async (options) => {
   const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false, // Use STARTTLS
     auth: {
       user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS, // Your 16-char App Password
+      pass: process.env.SMTP_PASS,
     },
   });
+
+  console.log(`Attempting to send email from: ${process.env.SMTP_USER}...`);
 
   const mailOptions = {
     from: `"Time Capsule" <${process.env.EMAIL_FROM}>`,
