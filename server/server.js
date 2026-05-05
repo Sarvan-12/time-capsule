@@ -1,5 +1,9 @@
+require('dotenv').config();
+console.log('--- Environment Check ---');
+console.log('SENDGRID_API_KEY Loaded:', process.env.SENDGRID_API_KEY ? `Yes (${process.env.SENDGRID_API_KEY.substring(0, 5)}...)` : 'No');
+console.log('------------------------');
+
 const express = require('express');
-const dotenv = require('dotenv');
 const cors = require('cors');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
@@ -10,9 +14,6 @@ const startScheduler = require('./utils/scheduler');
 const authRoutes = require('./routes/authRoutes');
 const capsuleRoutes = require('./routes/capsuleRoutes');
 const notificationRoutes = require('./routes/notificationRoutes');
-
-// Load env vars
-dotenv.config();
 
 // Connect to database
 connectDB();
