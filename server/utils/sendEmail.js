@@ -1,22 +1,27 @@
-const sgMail = require('@sendgrid/mail');
+const nodemailer = require('nodemailer');
 
 const sendEmail = async (options) => {
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS, // Your 16-char App Password
+    },
+  });
 
-  const msg = {
+  const mailOptions = {
+    from: `"Time Capsule" <${process.env.EMAIL_FROM}>`,
     to: options.email,
-    from: process.env.EMAIL_FROM, // Must be verified in SendGrid
     subject: options.subject,
     html: options.html,
   };
 
   try {
-    await sgMail.send(msg);
-    console.log(`Production: Email successfully sent via SendGrid to ${options.email}`);
+    await transporter.sendMail(mailOptions);
+    console.log(`🚀 GMAIL SUCCESS: Email sent to ${options.email}`);
   } catch (error) {
-    // If SendGrid is still reviewing, it will catch here
-    console.error('SendGrid Production Error:', error.response ? error.response.body : error.message);
-    throw new Error('Email could not be sent yet (SendGrid account likely pending review)');
+    console.error('Gmail Error:', error.message);
+    throw new Error('Email could not be sent via Gmail');
   }
 };
 

@@ -1,6 +1,6 @@
 require('dotenv').config();
 console.log('--- Environment Check ---');
-console.log('PRODUCTION EMAIL (SendGrid) Loaded:', process.env.SENDGRID_API_KEY ? `Yes (${process.env.SENDGRID_API_KEY.substring(0, 5)}...)` : 'No');
+console.log('GMAIL SERVICE Loaded:', process.env.SMTP_USER ? `Yes (${process.env.SMTP_USER})` : 'No');
 console.log('------------------------');
 
 const express = require('express');
