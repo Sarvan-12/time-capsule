@@ -151,9 +151,13 @@ const CreateCapsule = () => {
               <DatePicker
                 selected={formData.unlockDate}
                 onChange={(date) => setFormData({ ...formData, unlockDate: date })}
-                minDate={new Date(Date.now() + 86400000)}
+                minDate={new Date()}
+                showTimeSelect
+                timeFormat="HH:mm"
+                timeIntervals={15}
+                timeCaption="time"
                 className="input-field"
-                dateFormat="MMMM d, yyyy"
+                dateFormat="MMMM d, yyyy h:mm aa"
               />
             </div>
 
