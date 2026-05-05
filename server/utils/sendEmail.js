@@ -1,23 +1,22 @@
-const nodemailer = require('nodemailer');
+const sgMail = require('@sendgrid/mail');
 
 const sendEmail = async (options) => {
-  const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST || 'smtp.sendgrid.net',
-    port: process.env.SMTP_PORT || 587,
-    auth: {
-      user: process.env.SMTP_USER || 'apikey',
-      pass: process.env.SENDGRID_API_KEY,
-    },
-  });
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-  const mailOptions = {
-    from: `"Time Capsule" <${process.env.EMAIL_FROM}>`,
+  const msg = {
     to: options.email,
+    from: process.env.EMAIL_FROM, // Must be verified in SendGrid
     subject: options.subject,
     html: options.html,
   };
 
-  await transporter.sendMail(mailOptions);
+  try {
+    await sgMail.send(msg);
+    console.log(`Email sent successfully to ${options.email}`);
+  } catch (error) {
+    console.error('SendGrid Error:', error.response ? error.response.body : error.message);
+    throw new Error('Email could not be sent');
+  }
 };
 
 module.exports = sendEmail;
