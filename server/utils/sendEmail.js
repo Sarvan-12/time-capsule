@@ -24,7 +24,10 @@ const sendEmail = async (options) => {
     await transporter.sendMail(mailOptions);
     console.log(`🚀 GMAIL SUCCESS: Email sent to ${options.email}`);
   } catch (error) {
-    console.error('Gmail Error:', error.message);
+    console.error('--- GMAIL FAILED ---');
+    console.error('Error Code:', error.code);
+    console.error('Full Message:', error.message);
+    console.error('-------------------');
     throw new Error('Email could not be sent via Gmail');
   }
 };
