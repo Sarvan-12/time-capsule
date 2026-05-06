@@ -1,73 +1,212 @@
-# 🕰️ Digital Time Capsule
+# 🕰️ Future Message — Digital Time Capsule
 
-A full-stack MERN application that allows users to create, seal, and schedule digital memories to be delivered to themselves or others at a future date.
+> Send a message to your future self, or someone you love. Lock it in time. Deliver it when it matters most.
 
-![Digital Time Capsule Preview](https://res.cloudinary.com/demo/image/upload/v1625121234/sample-capsule.jpg)
+A full-stack **MERN** application that allows users to create, seal, and schedule digital memories — delivered automatically to any email inbox at a future date via **real email delivery**.
+
+---
 
 ## ✨ Features
 
-*   **🔒 Secure Time-Locking**: Messages are immutable once "Sealed" and remain hidden until the chosen unlock date.
-*   **🎨 Premium UI**: Built with a sleek glassmorphism aesthetic using Tailwind CSS v4 and Lucide icons.
-*   **📂 Multimedia Support**: Attach photos, videos, and audio files to your memories via Cloudinary.
-*   **🤖 Automated Delivery**: Background scheduler (node-cron) handles delivery via email (SendGrid) and in-app notifications.
-*   **🔄 Recurring Memories**: Option to clone capsules for yearly delivery.
-*   **🔐 Robust Auth**: JWT-based authentication with Access/Refresh tokens and protected routes.
+- 🔒 **Secure Time-Locking** — Messages are sealed and hidden until the chosen unlock date.
+- 📧 **Real Email Delivery** — Powered by **Brevo API**, emails land in real inboxes automatically.
+- 🔔 **In-App Notifications** — Bell icon alerts when a capsule is delivered.
+- 🎨 **Premium UI** — Glassmorphism aesthetic with Tailwind CSS v4 + Lucide Icons.
+- 📂 **Multimedia Support** — Attach photos, videos, and audio via Cloudinary.
+- 🤖 **Automated Scheduler** — Background cron job checks every minute and triggers delivery.
+- 🔐 **JWT Auth** — Secure login/signup with Access & Refresh tokens.
+- 👥 **Multiple Recipients** — Send your capsule to multiple email addresses at once.
 
 ---
 
 ## 🛠️ Tech Stack
 
-*   **Frontend**: React (Vite), Zustand (State), Tailwind CSS v4, Lucide Icons.
-*   **Backend**: Node.js, Express.js.
-*   **Database**: MongoDB + Mongoose.
-*   **Services**: Cloudinary (Media), SendGrid (Email).
-*   **Scheduling**: node-cron.
+| Layer | Technology |
+|---|---|
+| Frontend | React (Vite), Zustand, Tailwind CSS v4 |
+| Backend | Node.js, Express.js |
+| Database | MongoDB + Mongoose |
+| Email Delivery | **Brevo REST API** |
+| Media Uploads | Cloudinary |
+| Scheduling | node-cron |
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Getting Started (For Friends)
 
-### 1. Prerequisites
-*   Node.js (v18+)
-*   MongoDB (Local or Atlas)
+Follow these steps carefully to run the project locally with **your own** email sender.
 
-### 2. Installation
-Clone the repository:
+### Step 1: Prerequisites
+
+Make sure you have these installed:
+- [Node.js v18+](https://nodejs.org/en/download) — Download the LTS version
+- [MongoDB Community Server](https://www.mongodb.com/try/download/community) — For local database
+- [Git](https://git-scm.com/downloads) — To clone the repo
+
+---
+
+### Step 2: Clone the Repository
+
 ```bash
 git clone https://github.com/Sarvan-12/future-message.git
 cd future-message
 ```
 
-Install dependencies for all folders:
+---
+
+### Step 3: Install Dependencies
+
+Run this from the **root** folder:
+
 ```bash
 npm install
-cd client && npm install
-cd ../server && npm install
+cd server && npm install
+cd ../client && npm install
 cd ..
 ```
 
-### 3. Environment Variables
-Create a `.env` file in the `server` directory:
-```text
+---
+
+### Step 4: Get Your Free API Keys
+
+You need accounts on **3 platforms**. All are free.
+
+#### 🟦 A) Brevo (For Email Delivery)
+> This is the service that sends real emails from your app.
+
+1. Sign up for free at: **[https://app.brevo.com/account/register](https://app.brevo.com/account/register)**
+2. Verify your email address.
+3. Once logged in, go to: **[https://app.brevo.com/settings/keys/api](https://app.brevo.com/settings/keys/api)**
+4. Click **"Generate a new API key"**
+5. Name it anything (e.g., `TimeCapsule`) and click **Generate**.
+6. **Copy the key** — it starts with `xkeysib-...`
+
+> ⚠️ **Important**: The Brevo **Free Plan** gives you **300 emails/day** for free. No credit card needed.
+
+---
+
+#### 🟧 B) Cloudinary (For Image/Video Uploads)
+> This stores any media files users attach to their capsules.
+
+1. Sign up for free at: **[https://cloudinary.com/users/register_free](https://cloudinary.com/users/register_free)**
+2. After logging in, go to your **Dashboard**: **[https://console.cloudinary.com/](https://console.cloudinary.com/)**
+3. You will see your **Cloud Name**, **API Key**, and **API Secret** right on the dashboard.
+4. Copy all three.
+
+> ⚠️ **Important**: The Cloudinary **Free Plan** gives you **25GB storage** and **25GB bandwidth/month**.
+
+---
+
+#### 🟩 C) MongoDB (Database)
+> Option 1 (Recommended for local): Use the local MongoDB you installed in Step 1.
+> Your connection string will be: `mongodb://localhost:27017/capsule`
+
+> Option 2 (Cloud): Use **MongoDB Atlas** for free at: **[https://www.mongodb.com/cloud/atlas/register](https://www.mongodb.com/cloud/atlas/register)**
+> After creating a cluster, click **Connect** and copy your connection string.
+
+---
+
+### Step 5: Create Your `.env` File
+
+Inside the `server/` folder, create a new file called `.env` (no extension):
+
+```bash
+# Server
 PORT=5000
-MONGO_URI=your_mongodb_uri
-JWT_ACCESS_SECRET=your_secret
-JWT_REFRESH_SECRET=your_secret
-SENDGRID_API_KEY=your_key
-CLOUDINARY_CLOUD_NAME=your_name
-CLOUDINARY_API_KEY=your_key
-CLOUDINARY_API_SECRET=your_secret
+NODE_ENV=development
+
+# MongoDB
+MONGO_URI=mongodb://localhost:27017/capsule
+
+# JWT Secrets (make these long random strings)
+JWT_ACCESS_SECRET=your_super_secret_access_key_here
+JWT_REFRESH_SECRET=your_super_secret_refresh_key_here
+JWT_ACCESS_EXPIRE=15m
+JWT_REFRESH_EXPIRE=7d
+
+# ✉️ Email Settings (Brevo API)
+SMTP_USER=your_gmail@gmail.com
+SMTP_PASS=xkeysib-your-brevo-api-key-here
+EMAIL_FROM=your_gmail@gmail.com
+
+# ☁️ Cloudinary Settings
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
 ```
 
-### 4. Run the App
-From the root directory:
+> 📝 Replace all `your_...` values with your actual keys from Step 4.
+
+---
+
+### Step 6: Run the App
+
+From the **root** directory:
+
 ```bash
 npm run dev
 ```
-*   Frontend: `http://localhost:5173`
-*   Backend: `http://localhost:5000`
+
+You should see:
+```
+[0] BREVO SERVICE Loaded: Yes (your@email.com)
+[0] Server running on port 5000
+[0] MongoDB Connected: localhost
+[1] VITE ready — http://localhost:5173
+```
+
+Open your browser at: **[http://localhost:5173](http://localhost:5173)**
+
+---
+
+## 🧪 How to Test Email Delivery
+
+1. Sign up and log in to the app.
+2. Click **"New Capsule"**.
+3. Write a message.
+4. Add a recipient email (e.g., a friend's Gmail).
+5. Set the **Unlock Date** to **2 minutes from now**.
+6. Select **Delivery Mode: Both** (Email + In-App).
+7. Click **"Seal Capsule"**.
+8. Wait 2 minutes — **a real email will land in that inbox!** 📩
+
+---
+
+## 📁 Project Structure
+
+```
+future-message/
+├── client/          # React frontend (Vite)
+│   └── src/
+│       ├── components/
+│       ├── pages/
+│       └── store/
+├── server/          # Node.js backend
+│   ├── models/
+│   ├── routes/
+│   ├── utils/
+│   │   └── sendEmail.js   # Brevo API email logic
+│   └── server.js
+└── package.json     # Root scripts
+```
+
+---
+
+## ❓ Troubleshooting
+
+| Problem | Solution |
+|---|---|
+| `MongoDB connection failed` | Make sure MongoDB service is running locally |
+| `BREVO SERVICE Loaded: No` | Check your `server/.env` file exists and has `SMTP_PASS` |
+| Email not received | Check spam folder; verify your Brevo API key starts with `xkeysib-` |
+| Port 5000 in use | Change `PORT=5001` in your `.env` |
 
 ---
 
 ## 📄 License
-MIT License - feel free to use this for your own projects!
+
+MIT License — feel free to fork, modify, and build on this project!
+
+---
+
+Made with ❤️ by [Sarvan Salian](https://github.com/Sarvan-12)
