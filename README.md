@@ -85,15 +85,17 @@ You need accounts on **3 platforms**. All are free.
 
 ---
 
-#### 🟧 B) Cloudinary (For Image/Video Uploads)
-> This stores any media files users attach to their capsules.
+#### 🟧 B) Cloudinary (For Image/Video Uploads) — **OPTIONAL**
+> ⚠️ **Skip this if you only want text capsules + email delivery.** The app works perfectly without it!
+
+> Only needed if you want to attach photos, videos, or audio to capsules.
 
 1. Sign up for free at: **[https://cloudinary.com/users/register_free](https://cloudinary.com/users/register_free)**
 2. After logging in, go to your **Dashboard**: **[https://console.cloudinary.com/](https://console.cloudinary.com/)**
 3. You will see your **Cloud Name**, **API Key**, and **API Secret** right on the dashboard.
 4. Copy all three.
 
-> ⚠️ **Important**: The Cloudinary **Free Plan** gives you **25GB storage** and **25GB bandwidth/month**.
+> If you skip this, just leave the `CLOUDINARY_*` fields blank in your `.env` — everything else still works!
 
 ---
 
