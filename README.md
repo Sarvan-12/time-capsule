@@ -56,8 +56,18 @@ cd future-message
 
 ### Step 3: Install Dependencies
 
-Run this from the **root** folder:
+**Windows (PowerShell / CMD) — run each line separately:**
+```bash
+npm install
+cd server
+npm install
+cd ..
+cd client
+npm install
+cd ..
+```
 
+**Mac / Linux — can run as one block:**
 ```bash
 npm install
 cd server && npm install
