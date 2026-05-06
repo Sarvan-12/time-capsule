@@ -18,10 +18,10 @@ const sendEmail = async (options) => {
   fs.writeFileSync(filePath, debugContent);
   console.log(`✅ REAL PROOF: Email content saved to server/delivered_emails/${fileName}`);
 
-  // 2. Try the Gmail transport anyway
+  // 2. Try the Brevo transport
   const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 2525,
+    host: process.env.SMTP_HOST || 'smtp-relay.brevo.com',
+    port: process.env.SMTP_PORT || 587,
     secure: false,
     requireTLS: true,
     auth: {
@@ -40,9 +40,14 @@ const sendEmail = async (options) => {
       subject: options.subject,
       html: options.html,
     });
-    console.log(`🚀 GMAIL SUCCESS: Also sent to real inbox!`);
+    console.log(`🚀 BREVO SUCCESS: Also sent to real inbox!`);
   } catch (error) {
-    console.error('⚠️ NOTE: Gmail blocked the connection, but your email was successfully generated locally above!');
+    console.error('--- BREVO FAILED ---');
+    console.error('Error Code:', error.code);
+    console.error('Full Message:', error.message);
+    console.error('-------------------');
+    console.error('⚠️ NOTE: Brevo blocked the connection, but your email was successfully generated locally above!');
+    throw new Error('Email could not be sent via Brevo');
   }
 };
 

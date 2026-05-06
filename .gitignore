@@ -20,6 +20,9 @@ client/.env
 Thumbs.db
 *.log
 
+# Local Testing Files
+server/delivered_emails/
+
 # IDE Files
 .vscode/
 .idea/

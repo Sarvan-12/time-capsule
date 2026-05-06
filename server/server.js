@@ -1,6 +1,6 @@
 require('dotenv').config();
 console.log('--- Environment Check ---');
-console.log('GMAIL SERVICE Loaded:', process.env.SMTP_USER ? `Yes (${process.env.SMTP_USER})` : 'No');
+console.log('BREVO SERVICE Loaded:', process.env.SMTP_USER ? `Yes (${process.env.SMTP_USER})` : 'No');
 console.log('------------------------');
 
 const express = require('express');
