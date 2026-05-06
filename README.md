@@ -1,40 +1,40 @@
-# 🕰️ Future Message — Digital Time Capsule
+# Future Message — Digital Time Capsule
 
 > Send a message to your future self, or someone you love. Lock it in time. Deliver it when it matters most.
 
-A full-stack **MERN** application that allows users to create, seal, and schedule digital memories — delivered automatically to any email inbox at a future date via **real email delivery**.
+A full-stack **MERN** application that allows users to create, seal, and schedule digital memories — delivered automatically to any email inbox at a future date via real email delivery.
 
 ---
 
-## ✨ Features
+## Features
 
-- 🔒 **Secure Time-Locking** — Messages are sealed and hidden until the chosen unlock date.
-- 📧 **Real Email Delivery** — Powered by **Brevo API**, emails land in real inboxes automatically.
-- 🔔 **In-App Notifications** — Bell icon alerts when a capsule is delivered.
-- 🎨 **Premium UI** — Glassmorphism aesthetic with Tailwind CSS v4 + Lucide Icons.
-- 📂 **Multimedia Support** — Attach photos, videos, and audio via Cloudinary.
-- 🤖 **Automated Scheduler** — Background cron job checks every minute and triggers delivery.
-- 🔐 **JWT Auth** — Secure login/signup with Access & Refresh tokens.
-- 👥 **Multiple Recipients** — Send your capsule to multiple email addresses at once.
+- **Secure Time-Locking** — Messages are sealed and hidden until the chosen unlock date.
+- **Real Email Delivery** — Powered by the Brevo API, emails land in real inboxes automatically.
+- **In-App Notifications** — Bell icon alerts when a capsule is delivered.
+- **Premium UI** — Glassmorphism aesthetic built with Tailwind CSS v4 and Lucide Icons.
+- **Multimedia Support** — Attach photos, videos, and audio via Cloudinary.
+- **Automated Scheduler** — Background cron job checks every minute and triggers delivery.
+- **JWT Auth** — Secure login/signup with Access & Refresh tokens.
+- **Multiple Recipients** — Send your capsule to multiple email addresses at once.
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Layer | Technology |
 |---|---|
 | Frontend | React (Vite), Zustand, Tailwind CSS v4 |
 | Backend | Node.js, Express.js |
 | Database | MongoDB + Mongoose |
-| Email Delivery | **Brevo REST API** |
+| Email Delivery | Brevo REST API |
 | Media Uploads | Cloudinary |
 | Scheduling | node-cron |
 
 ---
 
-## 🚀 Getting Started (For Friends)
+## Getting Started
 
-Follow these steps carefully to run the project locally with **your own** email sender.
+Follow these steps carefully to run the project locally with your own email sender.
 
 ### Step 1: Prerequisites
 
@@ -79,41 +79,40 @@ cd ..
 
 ### Step 4: Get Your Free API Keys
 
-You need accounts on **3 platforms**. All are free.
+You need accounts on three platforms. All are free.
 
-#### 🟦 A) Brevo (For Email Delivery)
+#### A) Brevo (For Email Delivery)
 > This is the service that sends real emails from your app.
 
-1. Sign up for free at: **[https://app.brevo.com/account/register](https://app.brevo.com/account/register)**
+1. Sign up for free at: [https://app.brevo.com/account/register](https://app.brevo.com/account/register)
 2. Verify your email address.
-3. Once logged in, go to: **[https://app.brevo.com/settings/keys/api](https://app.brevo.com/settings/keys/api)**
+3. Once logged in, go to: [https://app.brevo.com/settings/keys/api](https://app.brevo.com/settings/keys/api)
 4. Click **"Generate a new API key"**
 5. Name it anything (e.g., `TimeCapsule`) and click **Generate**.
 6. **Copy the key** — it starts with `xkeysib-...`
 
-> ⚠️ **Important**: The Brevo **Free Plan** gives you **300 emails/day** for free. No credit card needed.
+> **Note**: The Brevo Free Plan provides 300 emails/day for free. No credit card is required.
 
 ---
 
-#### 🟧 B) Cloudinary (For Image/Video Uploads) — **OPTIONAL**
-> ⚠️ **Skip this if you only want text capsules + email delivery.** The app works perfectly without it!
-
+#### B) Cloudinary (For Image/Video Uploads) — OPTIONAL
+> **Skip this if you only want text capsules and email delivery.** The app works perfectly without it.
 > Only needed if you want to attach photos, videos, or audio to capsules.
 
-1. Sign up for free at: **[https://cloudinary.com/users/register_free](https://cloudinary.com/users/register_free)**
-2. After logging in, go to your **Dashboard**: **[https://console.cloudinary.com/](https://console.cloudinary.com/)**
+1. Sign up for free at: [https://cloudinary.com/users/register_free](https://cloudinary.com/users/register_free)
+2. After logging in, go to your **Dashboard**: [https://console.cloudinary.com/](https://console.cloudinary.com/)
 3. You will see your **Cloud Name**, **API Key**, and **API Secret** right on the dashboard.
 4. Copy all three.
 
-> If you skip this, just leave the `CLOUDINARY_*` fields blank in your `.env` — everything else still works!
+> If you skip this, just leave the `CLOUDINARY_*` fields blank in your `.env` — everything else still works.
 
 ---
 
-#### 🟩 C) MongoDB (Database)
+#### C) MongoDB (Database)
 > Option 1 (Recommended for local): Use the local MongoDB you installed in Step 1.
 > Your connection string will be: `mongodb://localhost:27017/capsule`
 
-> Option 2 (Cloud): Use **MongoDB Atlas** for free at: **[https://www.mongodb.com/cloud/atlas/register](https://www.mongodb.com/cloud/atlas/register)**
+> Option 2 (Cloud): Use **MongoDB Atlas** for free at: [https://www.mongodb.com/cloud/atlas/register](https://www.mongodb.com/cloud/atlas/register)
 > After creating a cluster, click **Connect** and copy your connection string.
 
 ---
@@ -139,20 +138,20 @@ JWT_REFRESH_SECRET=paste_your_other_generated_secret_here
 JWT_ACCESS_EXPIRE=15m
 JWT_REFRESH_EXPIRE=7d
 
-# ✉️ Email Settings (Brevo API)
+# Email Settings (Brevo API)
 SMTP_HOST=smtp-relay.brevo.com
 SMTP_PORT=587
 SMTP_USER=your_gmail@gmail.com
 SMTP_PASS=xkeysib-your-brevo-api-key-here
 EMAIL_FROM=your_gmail@gmail.com
 
-# ☁️ Cloudinary Settings (OPTIONAL — only for media uploads)
+# Cloudinary Settings (OPTIONAL — only for media uploads)
 CLOUDINARY_CLOUD_NAME=
 CLOUDINARY_API_KEY=
 CLOUDINARY_API_SECRET=
 ```
 
-> 💡 **How to generate JWT Secrets**: Open any terminal and run this command **twice** to get two unique secrets:
+> **How to generate JWT Secrets**: Open any terminal and run this command **twice** to get two unique secrets:
 > ```bash
 > node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
 > ```
@@ -169,18 +168,18 @@ npm run dev
 ```
 
 You should see:
-```
+```text
 [0] BREVO SERVICE Loaded: Yes (your@email.com)
 [0] Server running on port 5000
 [0] MongoDB Connected: localhost
 [1] VITE ready — http://localhost:5173
 ```
 
-Open your browser at: **[http://localhost:5173](http://localhost:5173)**
+Open your browser at: [http://localhost:5173](http://localhost:5173)
 
 ---
 
-## 🧪 How to Test Email Delivery
+## How to Test Email Delivery
 
 1. Sign up and log in to the app.
 2. Click **"New Capsule"**.
@@ -189,13 +188,13 @@ Open your browser at: **[http://localhost:5173](http://localhost:5173)**
 5. Set the **Unlock Date** to **2 minutes from now**.
 6. Select **Delivery Mode: Both** (Email + In-App).
 7. Click **"Seal Capsule"**.
-8. Wait 2 minutes — **a real email will land in that inbox!** 📩
+8. Wait 2 minutes — a real email will land in that inbox.
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
-```
+```text
 future-message/
 ├── client/          # React frontend (Vite)
 │   └── src/
@@ -213,7 +212,7 @@ future-message/
 
 ---
 
-## ❓ Troubleshooting
+## Troubleshooting
 
 | Problem | Solution |
 |---|---|
@@ -224,10 +223,10 @@ future-message/
 
 ---
 
-## 📄 License
+## License
 
 MIT License — feel free to fork, modify, and build on this project!
 
 ---
 
-Made with ❤️ by [Sarvan Salian](https://github.com/Sarvan-12)
+Created by [Sarvan Salian](https://github.com/Sarvan-12)
