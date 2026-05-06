@@ -18,36 +18,41 @@ const sendEmail = async (options) => {
   fs.writeFileSync(filePath, debugContent);
   console.log(`✅ REAL PROOF: Email content saved to server/delivered_emails/${fileName}`);
 
-  // 2. Try the Brevo transport
-  const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST || 'smtp-relay.brevo.com',
-    port: process.env.SMTP_PORT || 587,
-    secure: false,
-    requireTLS: true,
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
-    },
-    tls: {
-      rejectUnauthorized: false // Helps in local dev environments
-    }
-  });
-
+  // 2. Try the Brevo REST API transport (Bypasses SMTP blocks)
+  const axios = require('axios');
+  
   try {
-    await transporter.sendMail({
-      from: `"Time Capsule" <${process.env.EMAIL_FROM}>`,
-      to: options.email,
-      subject: options.subject,
-      html: options.html,
-    });
-    console.log(`🚀 BREVO SUCCESS: Also sent to real inbox!`);
+    const response = await axios.post(
+      'https://api.brevo.com/v3/smtp/email',
+      {
+        sender: {
+          name: 'Time Capsule',
+          email: process.env.EMAIL_FROM || process.env.SMTP_USER,
+        },
+        to: [
+          {
+            email: options.email,
+          },
+        ],
+        subject: options.subject,
+        htmlContent: options.html,
+      },
+      {
+        headers: {
+          'api-key': process.env.SMTP_PASS,
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      }
+    );
+    console.log(`🚀 BREVO API SUCCESS: Email sent to real inbox! Message ID:`, response.data.messageId);
   } catch (error) {
-    console.error('--- BREVO FAILED ---');
-    console.error('Error Code:', error.code);
-    console.error('Full Message:', error.message);
-    console.error('-------------------');
-    console.error('⚠️ NOTE: Brevo blocked the connection, but your email was successfully generated locally above!');
-    throw new Error('Email could not be sent via Brevo');
+    console.error('--- BREVO API FAILED ---');
+    console.error('Status:', error.response?.status);
+    console.error('Data:', JSON.stringify(error.response?.data, null, 2));
+    console.error('------------------------');
+    console.error('⚠️ NOTE: Brevo API blocked the connection, but your email was successfully generated locally above!');
+    throw new Error('Email could not be sent via Brevo API');
   }
 };
 
