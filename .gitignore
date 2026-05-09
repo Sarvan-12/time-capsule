@@ -31,3 +31,7 @@ server/delivered_emails/
 
 # Postman
 /TimeCapsule.postman_collection.json
+
+# Documentation
+prd.md
+
