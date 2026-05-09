@@ -26,22 +26,22 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-primary-500/20 via-slate-50 to-primary-500/20 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900">
-      <div className="w-full max-w-md glass p-8 rounded-2xl animate-in fade-in zoom-in duration-500">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-slate-900 dark:text-white">Welcome Back</h1>
-          <p className="text-slate-500 dark:text-slate-400 mt-2">Sign in to access your time capsules</p>
+    <div className="min-h-[calc(100vh-80px)] flex items-center justify-center p-6">
+      <div className="w-full max-w-[440px] glass p-10 stagger-in">
+        <div className="text-center mb-10">
+          <h1 className="text-4xl font-bold text-white tracking-tight">Welcome Back</h1>
+          <p className="text-white/45 mt-3 font-medium">Continue your journey through time.</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Email Address</label>
-            <div className="relative">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+            <label className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 ml-1">Email Address</label>
+            <div className="relative group">
+              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/20 group-focus-within:text-accent-purple transition-colors" />
               <input
                 type="email"
-                className="input-field pl-10"
-                placeholder="you@example.com"
+                className="w-full glass-input pl-12"
+                placeholder="name@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -50,12 +50,12 @@ const Login = () => {
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Password</label>
-            <div className="relative">
-              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+            <label className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 ml-1">Password</label>
+            <div className="relative group">
+              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/20 group-focus-within:text-accent-purple transition-colors" />
               <input
                 type="password"
-                className="input-field pl-10"
+                className="w-full glass-input pl-12"
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -67,16 +67,20 @@ const Login = () => {
           <button
             type="submit"
             disabled={loading}
-            className="btn-primary w-full flex items-center justify-center gap-2"
+            className="glass-btn-primary w-full flex items-center justify-center gap-3 py-3.5 mt-4"
           >
-            {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Sign In'}
+            {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : (
+              <>
+                <span className="font-bold tracking-wide">Sign In</span>
+              </>
+            )}
           </button>
         </form>
 
-        <p className="mt-8 text-center text-sm text-slate-600 dark:text-slate-400">
-          Don't have an account?{' '}
-          <Link to="/register" className="text-primary-600 hover:underline font-medium">
-            Create one
+        <p className="mt-10 text-center text-sm font-medium text-white/30">
+          New to the vault?{' '}
+          <Link to="/register" className="text-accent-purple hover:text-white transition-colors font-bold underline underline-offset-4 decoration-accent-purple/30">
+            Secure an account
           </Link>
         </p>
       </div>

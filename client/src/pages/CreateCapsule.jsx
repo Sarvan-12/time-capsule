@@ -81,58 +81,63 @@ const CreateCapsule = () => {
     } finally {
       setLoading(false);
     }
-  };
-
-  return (
-    <div className="max-w-4xl mx-auto space-y-8 pb-20 animate-in fade-in slide-in-from-bottom-4 duration-500">
+   return (
+    <div className="max-w-6xl mx-auto space-y-10 pb-24 stagger-in">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <button onClick={() => navigate(-1)} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full transition-colors">
-          <ArrowLeft className="w-6 h-6" />
+        <button onClick={() => navigate(-1)} className="p-3 glass bg-white/5 border-white/10 hover:bg-white/10 rounded-xl transition-all">
+          <ArrowLeft className="w-5 h-5 text-white/70" />
         </button>
-        <div className="flex gap-3">
-          <button onClick={saveDraft} disabled={loading} className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-lg hover:bg-slate-50 transition-colors font-medium">
+        <div className="flex gap-4">
+          <button onClick={saveDraft} disabled={loading} className="flex items-center gap-2 px-6 py-2.5 glass bg-white/5 border-white/10 text-white/70 hover:text-white hover:bg-white/10 transition-all font-semibold text-sm">
             <Save className="w-4 h-4" />
             Save Draft
           </button>
-          <button onClick={handleSeal} disabled={loading} className="btn-primary flex items-center gap-2">
+          <button onClick={handleSeal} disabled={loading} className="glass-btn-primary flex items-center gap-2">
             <Lock className="w-4 h-4" />
-            Seal Capsule
+            Seal Protocol
           </button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
         {/* Left Column: Editor & Media */}
-        <div className="lg:col-span-2 space-y-6">
-          <div className="glass p-6 rounded-2xl space-y-4">
+        <div className="lg:col-span-8 space-y-8">
+          <div className="glass p-8 space-y-6">
             <input
               type="text"
-              placeholder="Give your capsule a title..."
-              className="text-3xl font-bold bg-transparent border-none outline-none w-full placeholder:text-slate-300 dark:placeholder:text-slate-700"
+              placeholder="Archive Title..."
+              className="text-4xl font-bold bg-transparent border-none outline-none w-full text-white placeholder:text-white/10 tracking-tight"
               value={formData.title}
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
             />
-            <RichTextEditor
-              content={formData.content}
-              onChange={(html) => setFormData({ ...formData, content: html })}
-            />
+            <div className="border-t border-white/5 pt-6">
+              <RichTextEditor
+                content={formData.content}
+                onChange={(html) => setFormData({ ...formData, content: html })}
+              />
+            </div>
           </div>
 
-          <div className="glass p-6 rounded-2xl">
-            <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
-              <ImageIcon className="w-5 h-5 text-primary-500" />
-              Media Attachments
+          <div className="glass p-8">
+            <h3 className="text-xl font-bold mb-6 flex items-center gap-3 text-white">
+              <ImageIcon className="w-5 h-5 text-accent-purple" />
+              Preserved Media
             </h3>
-            <MediaUploader 
-              capsuleId={capsuleId} 
-              onUploadComplete={(media) => setFormData({ ...formData, media })} 
-            />
+            <div className="p-1">
+              <MediaUploader 
+                capsuleId={capsuleId} 
+                onUploadComplete={(media) => setFormData({ ...formData, media })} 
+              />
+            </div>
             {formData.media.length > 0 && (
-              <div className="mt-4 grid grid-cols-4 gap-2">
+              <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4">
                 {formData.media.map((url, i) => (
-                  <div key={i} className="aspect-square rounded-lg overflow-hidden border border-slate-200">
-                    <img src={url} alt="Attachment" className="w-full h-full object-cover" />
+                  <div key={i} className="aspect-square rounded-2xl overflow-hidden border border-white/10 glass bg-white/5 group relative">
+                    <img src={url} alt="Attachment" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                    <div className="absolute inset-0 bg-navy-base/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      <Plus className="w-6 h-6 text-white rotate-45" />
+                    </div>
                   </div>
                 ))}
               </div>
@@ -141,12 +146,12 @@ const CreateCapsule = () => {
         </div>
 
         {/* Right Column: Settings */}
-        <div className="space-y-6">
-          <div className="glass p-6 rounded-2xl space-y-6">
-            <div>
-              <label className="text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 block flex items-center gap-2">
-                <CalendarIcon className="w-4 h-4" />
-                Unlock Date
+        <div className="lg:col-span-4 space-y-8">
+          <div className="glass p-8 space-y-8">
+            <div className="space-y-3">
+              <label className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 ml-1 flex items-center gap-2">
+                <CalendarIcon className="w-3.5 h-3.5 text-accent-purple" />
+                Unlock Timestamp
               </label>
               <DatePicker
                 selected={formData.unlockDate}
@@ -156,22 +161,22 @@ const CreateCapsule = () => {
                 timeFormat="HH:mm"
                 timeIntervals={15}
                 timeCaption="time"
-                className="input-field"
+                className="w-full glass-input"
                 dateFormat="MMMM d, yyyy h:mm aa"
               />
             </div>
 
-            <div>
-              <label className="text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 block">Privacy</label>
-              <div className="flex gap-2">
+            <div className="space-y-3">
+              <label className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 ml-1">Access Protocol</label>
+              <div className="flex gap-2 p-1 glass bg-white/5 border-white/5 rounded-2xl">
                 {['private', 'shared', 'public'].map((p) => (
                   <button
                     key={p}
                     onClick={() => setFormData({ ...formData, privacy: p })}
-                    className={`flex-1 py-2 rounded-lg text-xs font-bold capitalize transition-all ${
+                    className={`flex-1 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
                       formData.privacy === p 
-                        ? 'bg-primary-600 text-white' 
-                        : 'bg-slate-100 dark:bg-slate-800 text-slate-600'
+                        ? 'bg-accent-purple text-white shadow-lg shadow-accent-purple/20' 
+                        : 'text-white/30 hover:text-white/60 hover:bg-white/5'
                     }`}
                   >
                     {p}
@@ -180,28 +185,28 @@ const CreateCapsule = () => {
               </div>
             </div>
 
-            <div>
-              <label className="text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 block flex items-center justify-between">
-                Recipients
-                <button onClick={addRecipient} className="p-1 hover:bg-primary-100 rounded text-primary-600">
+            <div className="space-y-3">
+              <label className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 ml-1 flex items-center justify-between">
+                Designated Recipients
+                <button onClick={addRecipient} className="p-1.5 glass bg-white/5 border-white/10 hover:bg-accent-purple/20 text-accent-purple rounded-lg transition-all">
                   <Plus className="w-4 h-4" />
                 </button>
               </label>
-              <div className="space-y-2">
+              <div className="space-y-3">
                 {formData.recipients.map((r, i) => (
-                  <div key={i} className="flex gap-2">
-                    <div className="relative flex-1">
-                      <UserPlus className="absolute left-2 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <div key={i} className="flex gap-3">
+                    <div className="relative flex-1 group">
+                      <UserPlus className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-white/20 group-focus-within:text-accent-purple transition-colors" />
                       <input
                         type="email"
-                        className="input-field pl-8 py-1.5 text-sm"
+                        className="w-full glass-input pl-10 py-2 text-sm"
                         placeholder="email@example.com"
                         value={r.email}
                         onChange={(e) => handleRecipientChange(i, e.target.value)}
                       />
                     </div>
                     {formData.recipients.length > 1 && (
-                      <button onClick={() => removeRecipient(i)} className="text-slate-400 hover:text-red-500">
+                      <button onClick={() => removeRecipient(i)} className="text-white/20 hover:text-red-400 transition-colors">
                         <X className="w-4 h-4" />
                       </button>
                     )}
@@ -210,16 +215,16 @@ const CreateCapsule = () => {
               </div>
             </div>
 
-            <div>
-              <label className="text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 block">Delivery Mode</label>
+            <div className="space-y-3">
+              <label className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40 ml-1">Transmission Mode</label>
               <select
-                className="input-field py-1.5 text-sm"
+                className="w-full glass-input py-2 text-sm appearance-none bg-navy-base"
                 value={formData.deliveryMode}
                 onChange={(e) => setFormData({ ...formData, deliveryMode: e.target.value })}
               >
-                <option value="in-app">In-App Only</option>
-                <option value="email">Email Only</option>
-                <option value="both">Both</option>
+                <option value="in-app">Vault Direct (In-App)</option>
+                <option value="email">Deep Space Relay (Email)</option>
+                <option value="both">Hybrid Protocol (Both)</option>
               </select>
             </div>
           </div>

@@ -3,96 +3,96 @@ import { Clock, Shield, Zap, Heart, ArrowRight, Play } from 'lucide-react';
 
 const Landing = () => {
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 overflow-hidden">
-      {/* Background Blobs */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary-500/20 rounded-full blur-[120px] animate-pulse" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-500/10 rounded-full blur-[120px]" />
-      </div>
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Background Orbs (Local to Landing for extra depth) */}
+      <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-accent-purple/20 rounded-full blur-[160px] animate-pulse" />
+      <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-blue-500/10 rounded-full blur-[160px]" />
 
       {/* Navigation */}
-      <nav className="container mx-auto px-6 py-6 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div className="p-2 bg-primary-600 rounded-lg">
-            <Clock className="w-6 h-6 text-white" />
+      <nav className="container mx-auto px-8 py-8 flex items-center justify-between stagger-in">
+        <div className="flex items-center gap-3">
+          <div className="p-2.5 bg-accent-purple/20 border border-accent-purple/30 rounded-xl">
+            <Clock className="w-6 h-6 text-accent-purple" />
           </div>
-          <span className="text-xl font-bold text-slate-900 dark:text-white">Capsule</span>
+          <span className="text-2xl font-black text-white tracking-tighter">AETHER</span>
         </div>
-        <div className="flex items-center gap-4">
-          <Link to="/login" className="text-sm font-semibold text-slate-600 dark:text-slate-400 hover:text-primary-600 transition-colors">
-            Sign In
+        <div className="flex items-center gap-6">
+          <Link to="/login" className="text-sm font-bold text-white/40 hover:text-white transition-colors">
+            Vault Access
           </Link>
-          <Link to="/register" className="btn-primary py-2 px-6">
-            Get Started
+          <Link to="/register" className="glass-btn-primary px-8 py-2.5 text-sm">
+            Begin Journey
           </Link>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="container mx-auto px-6 pt-20 pb-32 text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 text-sm font-bold mb-8 animate-bounce">
-          <Zap className="w-4 h-4" />
-          Now with Secure Time-Locking
+      <section className="container mx-auto px-6 pt-24 pb-32 text-center">
+        <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full glass bg-white/5 border-white/10 text-accent-purple text-[10px] font-black uppercase tracking-[0.3em] mb-12 stagger-in">
+          <Zap className="w-3.5 h-3.5 fill-current" />
+          Quantum Time-Locking Active
         </div>
-        <h1 className="text-6xl md:text-8xl font-black text-slate-900 dark:text-white mb-8 tracking-tight">
-          Talk to the <br />
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-600 via-purple-500 to-blue-600">
-            Future You.
+        <h1 className="text-7xl md:text-[140px] font-black text-white mb-10 tracking-[-0.05em] leading-[0.85] stagger-in" style={{ animationDelay: '0.1s' }}>
+          Secure Your <br />
+          <span className="text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-white/20">
+            Legacy.
           </span>
         </h1>
-        <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-12 leading-relaxed">
-          Create digital time capsules filled with messages, photos, and videos. 
-          Lock them away and schedule them to be opened on your chosen date.
+        <p className="text-xl text-white/45 max-w-2xl mx-auto mb-16 leading-relaxed font-medium stagger-in" style={{ animationDelay: '0.2s' }}>
+          The world's most secure digital vault. Preserve messages, media, and memories in a time-locked capsule, destined for the future.
         </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Link to="/register" className="btn-primary text-lg px-8 py-4 w-full sm:w-auto flex items-center justify-center gap-2 group">
-            Start Your First Capsule
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 stagger-in" style={{ animationDelay: '0.3s' }}>
+          <Link to="/register" className="glass-btn-primary text-lg px-10 py-5 w-full sm:w-auto flex items-center justify-center gap-3 group">
+            <span className="font-bold">Initialize Vault</span>
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Link>
-          <button className="px-8 py-4 rounded-xl border border-slate-200 dark:border-slate-800 font-bold hover:bg-slate-100 dark:hover:bg-slate-900 transition-all flex items-center gap-2 w-full sm:w-auto justify-center">
-            <Play className="w-5 h-5 fill-current" />
-            Watch How it Works
+          <button className="px-10 py-5 rounded-2xl glass bg-white/5 border-white/10 text-white font-bold hover:bg-white/10 transition-all flex items-center gap-3 w-full sm:w-auto justify-center">
+            <Play className="w-5 h-5 fill-current text-accent-purple" />
+            The Protocol
           </button>
         </div>
       </section>
 
       {/* Features */}
-      <section className="container mx-auto px-6 py-24">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+      <section className="container mx-auto px-6 py-32 border-t border-white/5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
             {
               title: "Time Locking",
-              desc: "Once sealed, your capsule cannot be opened until the exact second you specify.",
+              desc: "Atomic-clock synchronization ensures your capsule remains impenetrable until the exact microsecond of arrival.",
               icon: Clock,
-              color: "bg-blue-500"
+              accent: "text-accent-purple",
+              bg: "bg-accent-purple/10"
             },
             {
-              title: "Military Encryption",
-              desc: "Your data is encrypted and private. Only intended recipients can ever see your content.",
+              title: "AES-256 Vault",
+              desc: "Military-grade encryption protocols safeguard your data. Your legacy is protected by the highest standards of digital security.",
               icon: Shield,
-              color: "bg-purple-500"
+              accent: "text-blue-400",
+              bg: "bg-blue-400/10"
             },
             {
-              title: "Emotional Milestones",
-              desc: "Perfect for birthdays, graduations, or letters to your children when they grow up.",
+              title: "Endless Horizons",
+              desc: "Perfect for generational milestones. Speak to your children, your successors, or your future self across decades.",
               icon: Heart,
-              color: "bg-pink-500"
+              accent: "text-pink-400",
+              bg: "bg-pink-400/10"
             }
           ].map((feature, i) => (
-            <div key={i} className="glass p-8 rounded-3xl group hover:-translate-y-2 transition-all duration-300">
-              <div className={`w-12 h-12 ${feature.color} rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-${feature.color.split('-')[1]}-500/20`}>
-                <feature.icon className="w-6 h-6 text-white" />
+            <div key={i} className="glass bg-white/[0.03] p-10 stagger-in" style={{ animationDelay: `${0.4 + i * 0.1}s` }}>
+              <div className={`w-14 h-14 ${feature.bg} ${feature.accent} border border-current/20 rounded-2xl flex items-center justify-center mb-8 shadow-2xl shadow-black/50`}>
+                <feature.icon className="w-7 h-7" />
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-slate-900 dark:text-white">{feature.title}</h3>
-              <p className="text-slate-500 dark:text-slate-400 leading-relaxed">{feature.desc}</p>
+              <h3 className="text-2xl font-bold mb-4 text-white tracking-tight">{feature.title}</h3>
+              <p className="text-white/40 leading-relaxed font-medium">{feature.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="container mx-auto px-6 py-12 border-t border-slate-200 dark:border-slate-900 text-center text-slate-500 text-sm">
-        <p>© 2026 Digital Time Capsule. Bridging today and tomorrow.</p>
+      <footer className="container mx-auto px-6 py-16 border-t border-white/5 text-center stagger-in">
+        <p className="text-white/20 text-[10px] font-black uppercase tracking-[0.4em]">© 2026 AETHER VAULT PROTOCOL • Bridging Epochs</p>
       </footer>
     </div>
   );

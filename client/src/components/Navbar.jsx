@@ -21,30 +21,30 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 glass border-b border-white/10">
+    <nav className="sticky top-0 z-50 bg-navy-base/60 backdrop-blur-[30px] border-b border-white/5">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-18">
           <Link to="/dashboard" className="flex items-center gap-2 group">
-            <div className="p-2 bg-primary-600 rounded-lg group-hover:rotate-12 transition-transform">
-              <Clock className="w-6 h-6 text-white" />
+            <div className="p-2 bg-accent-purple/20 border border-accent-purple/30 rounded-xl group-hover:rotate-12 transition-transform duration-300">
+              <Clock className="w-6 h-6 text-accent-purple" />
             </div>
-            <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-primary-400">
+            <span className="text-2xl font-bold text-white tracking-tight">
               Capsule
             </span>
           </Link>
 
-          <div className="hidden md:flex items-center gap-6">
+          <div className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
-                className={`flex items-center gap-2 text-sm font-medium transition-colors ${
+                className={`flex items-center gap-2 text-sm font-semibold transition-all duration-300 ${
                   location.pathname === item.path
-                    ? 'text-primary-600'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-primary-500'
+                    ? 'text-white'
+                    : 'text-white/45 hover:text-white'
                 }`}
               >
-                <item.icon className="w-4 h-4" />
+                <item.icon className={`w-4 h-4 ${location.pathname === item.path ? 'text-accent-purple' : ''}`} />
                 {item.name}
               </Link>
             ))}
@@ -53,21 +53,20 @@ const Navbar = () => {
           <div className="flex items-center gap-4">
             <NotificationBell />
             
-            <div className="flex items-center gap-3 pr-4 border-r border-slate-200 dark:border-slate-800">
-
+            <div className="flex items-center gap-3 px-4 py-1.5 glass bg-white/5 border-white/10 rounded-full">
               <img
-                src={user?.avatar || 'https://via.placeholder.com/40'}
+                src={user?.avatar || `https://ui-avatars.com/api/?name=${user?.name}&background=7850ff&color=fff`}
                 alt="Profile"
-                className="w-8 h-8 rounded-full border-2 border-primary-500/20"
+                className="w-7 h-7 rounded-full border border-white/20"
               />
-              <span className="hidden sm:inline text-sm font-medium text-slate-700 dark:text-slate-300">
+              <span className="hidden sm:inline text-sm font-semibold text-white/90">
                 {user?.name}
               </span>
             </div>
 
             <button
               onClick={handleLogout}
-              className="p-2 text-slate-500 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-lg transition-colors"
+              className="p-2 text-white/45 hover:text-red-400 hover:bg-red-400/10 rounded-xl transition-all"
               title="Logout"
             >
               <LogOut className="w-5 h-5" />

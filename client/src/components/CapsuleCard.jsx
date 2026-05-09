@@ -39,43 +39,68 @@ const CapsuleCard = ({ capsule }) => {
   return (
     <Link 
       to={`/capsule/${capsule._id}`}
-      className="glass group hover:ring-2 hover:ring-primary-500/50 transition-all duration-300 rounded-2xl overflow-hidden flex flex-col"
+      className={`glass-card relative overflow-hidden flex flex-col border-l-4 ${
+        capsule.status === 'sealed' ? 'border-accent-purple shadow-[0_0_20px_rgba(120,80,255,0.1)]' :
+        capsule.status === 'delivered' ? 'border-accent-green shadow-[0_0_20px_rgba(0,255,170,0.1)]' :
+        'border-white/20'
+      }`}
     >
-      <div className="relative h-40 overflow-hidden">
+      <div className="relative h-44 overflow-hidden">
         <img
           src={capsule.coverImage}
           alt={capsule.title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 brightness-75"
         />
-        <div className="absolute top-3 right-3 flex gap-2">
-          <span className={`px-2 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${statusColors[capsule.status]}`}>
+        <div className="absolute inset-0 bg-gradient-to-t from-navy-base/80 to-transparent" />
+        
+        <div className="absolute top-4 right-4 flex gap-2">
+          <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.15em] backdrop-blur-xl border border-white/10 ${
+            capsule.status === 'sealed' ? 'bg-accent-purple/20 text-accent-purple' :
+            capsule.status === 'delivered' ? 'bg-accent-green/20 text-accent-green' :
+            'bg-white/10 text-white/60'
+          }`}>
             {capsule.status}
           </span>
         </div>
+
+        {capsule.status === 'sealed' && (
+          <div className="absolute bottom-4 left-4 p-2 bg-accent-purple/20 border border-accent-purple/40 rounded-lg animate-pulse">
+            <Lock className="w-4 h-4 text-accent-purple" />
+          </div>
+        )}
       </div>
 
-      <div className="p-5 space-y-4 flex-1">
-        <div>
-          <div className="flex items-center gap-2 text-primary-600 text-xs font-semibold uppercase mb-1">
+      <div className="p-6 space-y-5 flex-1 flex flex-col justify-between">
+        <div className="space-y-2">
+          <div className="flex items-center gap-2 text-white/40 text-[10px] font-bold uppercase tracking-widest">
             <PrivacyIcon className="w-3 h-3" />
             {capsule.privacy}
           </div>
-          <h3 className="text-lg font-bold text-slate-900 dark:text-white line-clamp-1">{capsule.title}</h3>
+          <h3 className="text-xl font-bold text-white tracking-tight leading-tight group-hover:text-accent-purple transition-colors duration-300 line-clamp-2">
+            {capsule.title}
+          </h3>
         </div>
 
-        <div className="flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400">
-          <div className="flex items-center gap-1">
-            <Clock className="w-4 h-4" />
-            {timeLeft}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between text-sm">
+            <div className="flex items-center gap-2 text-white/60 font-medium">
+              <Clock className="w-4 h-4 text-accent-purple" />
+              {timeLeft}
+            </div>
+            <div className="flex items-center gap-2 text-white/30 font-semibold">
+              <Users className="w-4 h-4" />
+              {capsule.recipients?.length || 0}
+            </div>
           </div>
-          <div className="flex items-center gap-1">
-            <Mail className="w-4 h-4" />
-            {capsule.recipients?.length || 0}
-          </div>
-        </div>
 
-        <div className="pt-4 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-400">
-          Unlock Date: {format(new Date(capsule.unlockDate), 'MMM d, yyyy h:mm aa')}
+          <div className="pt-4 border-t border-white/5 flex items-center justify-between">
+            <div className="text-[10px] font-bold text-white/20 uppercase tracking-tighter">
+              Unlocks {format(new Date(capsule.unlockDate), 'MMM d, yyyy')}
+            </div>
+            <div className="text-[10px] font-black text-white/10 uppercase group-hover:text-accent-purple/40 transition-colors">
+              Open &rarr;
+            </div>
+          </div>
         </div>
       </div>
     </Link>
