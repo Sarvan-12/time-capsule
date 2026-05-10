@@ -49,23 +49,36 @@ const MediaUploader = ({ capsuleId, onUploadComplete }) => {
     <div className="space-y-4">
       <div
         {...getRootProps()}
-        className={`border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all ${
+        className={`border-2 border-dashed rounded-[32px] p-10 text-center cursor-pointer transition-all duration-300 glass bg-white/[0.01] ${
           isDragActive 
-            ? 'border-primary-500 bg-primary-50 dark:bg-primary-950/20' 
-            : 'border-slate-200 dark:border-slate-800 hover:border-primary-400 dark:hover:border-primary-600'
+            ? 'border-accent-purple bg-accent-purple/5 shadow-2xl shadow-accent-purple/10 scale-[0.99]' 
+            : 'border-white/10 hover:border-accent-purple/50 hover:bg-white/[0.03]'
         }`}
       >
         <input {...getInputProps()} />
         <div className="flex flex-col items-center">
           {uploading ? (
-            <Loader2 className="w-10 h-10 text-primary-600 animate-spin mb-3" />
+            <Loader2 className="w-12 h-12 text-accent-purple animate-spin mb-4" />
           ) : (
-            <Upload className="w-10 h-10 text-slate-400 mb-3" />
+            <div className={`p-4 rounded-2xl bg-white/5 border border-white/10 mb-4 transition-transform ${isDragActive ? 'scale-110' : ''}`}>
+              <Upload className={`w-8 h-8 ${isDragActive ? 'text-accent-purple' : 'text-white/20'}`} />
+            </div>
           )}
-          <p className="text-slate-600 dark:text-slate-400 font-medium">
-            {isDragActive ? 'Drop files here' : 'Drag & drop media here, or click to select'}
+          <p className="text-white/60 font-bold tracking-tight text-lg">
+            {isDragActive ? 'Release to Materialize' : 'Atmospheric Upload'}
           </p>
-          <p className="text-xs text-slate-500 mt-1">Images, MP4, MP3, PDF (Max 10MB)</p>
+          <p className="text-white/20 text-xs mt-2 font-medium tracking-wide">
+            Drag & drop your essence here, or click to browse
+          </p>
+          <div className="mt-6 flex gap-3 text-[10px] font-black uppercase tracking-widest text-white/10">
+             <span>Images</span>
+             <span>•</span>
+             <span>MP4</span>
+             <span>•</span>
+             <span>MP3</span>
+             <span>•</span>
+             <span>PDF</span>
+          </div>
         </div>
       </div>
     </div>
