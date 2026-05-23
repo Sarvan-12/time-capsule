@@ -255,19 +255,13 @@ future-message/
 
 ## <img src="https://api.iconify.design/lucide/git-pull-request.svg?color=%237850ff" width="20" height="20" align="center" /> Contributing
 
-Contributions are welcome. Please follow these conventions to keep the codebase consistent:
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-- **Branch naming** — Use a prefix that reflects the change type: `feat/your-feature`, `fix/bug-description`, `docs/what-you-updated`.
-- **Commit messages** — Follow the Conventional Commits format: `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`. Keep the subject line under 72 characters.
-- **Pull Requests** — Open a PR against `main`. Include a short description of what changed and why. Reference any related issue numbers.
-- **Code style** — Match the existing patterns in the file you are editing. Do not introduce new dependencies without discussion.
-- **Testing** — If your change affects the cron scheduler or email delivery logic, verify end-to-end locally before submitting.
-
----
-
-## <img src="https://api.iconify.design/lucide/file-text.svg?color=%237850ff" width="20" height="20" align="center" /> License
-
-MIT License — free to fork, modify, and build upon.
+1. Fork the project.
+2. Create your feature branch ( `git checkout -b feature/AmazingFeature` ).
+3. Commit your changes ( `git commit -m 'Add some AmazingFeature'` ).
+4. Push to the branch ( `git push origin feature/AmazingFeature` ).
+5. Open a Pull Request.
 
 ---
 
