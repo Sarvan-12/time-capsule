@@ -22,6 +22,7 @@ Thumbs.db
 
 # Local Testing Files
 server/delivered_emails/
+server/scratch/
 
 # IDE Files
 .vscode/

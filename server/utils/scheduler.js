@@ -1,4 +1,6 @@
 const cron = require('node-cron');
+const axios = require('axios');
+const cloudinary = require('../config/cloudinary');
 const Capsule = require('../models/Capsule');
 const Notification = require('../models/Notification');
 const sendEmail = require('./sendEmail');
@@ -19,24 +21,59 @@ const deliverCapsules = async () => {
       if (capsule.deliveryMode === 'email' || capsule.deliveryMode === 'both') {
         for (const recipient of capsule.recipients) {
           try {
+            // 1. Fetch media assets as Base64 strings (Done once per capsule if possible, but for simplicity we do it here)
+            const attachments = [];
+            if (capsule.media && capsule.media.length > 0) {
+              for (const url of capsule.media) {
+                try {
+                  // Extract public_id from URL
+                  const parts = url.split('/');
+                  const fileName = parts.pop();
+                  const folder = parts.pop();
+                  const publicId = `${folder}/${fileName.split('.')[0]}`;
+                  
+                  // Generate Private Download URL
+                  const downloadUrl = cloudinary.utils.private_download_url(publicId, fileName.split('.').pop(), {
+                    resource_type: url.includes('/raw/') ? 'raw' : 'image',
+                    type: 'upload'
+                  });
+
+                  const response = await axios.get(downloadUrl, { responseType: 'arraybuffer' });
+                  const base64Content = Buffer.from(response.data).toString('base64');
+                  
+                  attachments.push({
+                    content: base64Content,
+                    name: fileName
+                  });
+                } catch (fetchErr) {
+                  console.error(`Failed to fetch asset ${url}:`, fetchErr.message);
+                }
+              }
+            }
+
+            // 2. Send the Email
             await sendEmail({
               email: recipient.email,
               subject: `🎉 Your Time Capsule "${capsule.title}" has been unlocked!`,
               html: `
-                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-                  <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 12px 12px 0 0; text-align: center;">
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 12px;">
+                  <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 10px 10px 0 0; text-align: center;">
                     <h1 style="color: white; margin: 0;">🕰️ Time Capsule Unlocked!</h1>
                   </div>
-                  <div style="background: #f9fafb; padding: 30px; border-radius: 0 0 12px 12px; border: 1px solid #e5e7eb;">
+                  <div style="padding: 30px; color: #333;">
                     <h2 style="color: #1f2937;">${capsule.title}</h2>
-                    <p style="color: #4b5563;">From: <strong>${capsule.creator.name}</strong></p>
-                    <div style="background: white; padding: 20px; border-radius: 8px; border: 1px solid #e5e7eb; margin: 20px 0;">
+                    <p style="color: #666;">A message from the past from <strong>${capsule.creator.name}</strong>:</p>
+                    <div style="background: #fdfbf7; padding: 25px; border-radius: 8px; border-left: 4px solid #667eea; margin: 20px 0; font-style: italic;">
                       ${capsule.content}
                     </div>
-                    <p style="color: #6b7280; font-size: 12px;">This capsule was created on ${capsule.createdAt.toLocaleDateString()} and scheduled for delivery on ${capsule.unlockDate.toLocaleDateString()}.</p>
+                    <p style="font-size: 14px; color: #888;">Attached you will find your preserved media assets.</p>
+                  </div>
+                  <div style="background: #f9fafb; padding: 15px; border-radius: 0 0 10px 10px; text-align: center; font-size: 12px; color: #aaa;">
+                    Created on ${capsule.createdAt.toLocaleDateString()} • Delivered by Aether Vault
                   </div>
                 </div>
               `,
+              attachments: attachments
             });
           } catch (emailErr) {
             console.error(`Failed to send email to ${recipient.email}:`, emailErr.message);

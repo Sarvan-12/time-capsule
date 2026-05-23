@@ -26,21 +26,31 @@ const sendEmail = async (options) => {
   const axios = require('axios');
   
   try {
+    const emailData = {
+      sender: {
+        name: 'Time Capsule',
+        email: process.env.EMAIL_FROM || process.env.SMTP_USER,
+      },
+      to: [
+        {
+          email: options.email,
+        },
+      ],
+      subject: options.subject,
+      htmlContent: options.html,
+    };
+
+    // Only add attachment field if there are actually files to send
+    if (options.attachments && options.attachments.length > 0) {
+      emailData.attachment = options.attachments.map(att => ({
+        content: att.content, // Base64 content
+        name: att.name
+      }));
+    }
+
     const response = await axios.post(
       'https://api.brevo.com/v3/smtp/email',
-      {
-        sender: {
-          name: 'Time Capsule',
-          email: process.env.EMAIL_FROM || process.env.SMTP_USER,
-        },
-        to: [
-          {
-            email: options.email,
-          },
-        ],
-        subject: options.subject,
-        htmlContent: options.html,
-      },
+      emailData,
       {
         headers: {
           'api-key': process.env.SMTP_PASS,
