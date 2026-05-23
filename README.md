@@ -6,20 +6,20 @@ A full-stack **MERN** application that lets users create, seal, and schedule dig
 
 ---
 
-## <img src="https://unpkg.com/lucide-static@latest/icons/zap.svg" width="20" height="20" /> Features
+## <img src="https://api.iconify.design/lucide/zap.svg?color=%237850ff" width="20" height="20" align="center" /> Features
 
-- <img src="https://unpkg.com/lucide-static@latest/icons/lock.svg" width="14" height="14" /> **Secure Time-Locking** — Messages are sealed and hidden until the chosen unlock date.
-- <img src="https://unpkg.com/lucide-static@latest/icons/mail.svg" width="14" height="14" /> **Real Email Delivery** — Powered by the Brevo API; emails land in real inboxes automatically.
-- <img src="https://unpkg.com/lucide-static@latest/icons/bell.svg" width="14" height="14" /> **In-App Notifications** — Bell icon alerts when a capsule is delivered.
-- <img src="https://unpkg.com/lucide-static@latest/icons/sparkles.svg" width="14" height="14" /> **Premium UI** — Glassmorphism aesthetic built with Tailwind CSS v4 and Lucide Icons.
-- <img src="https://unpkg.com/lucide-static@latest/icons/paperclip.svg" width="14" height="14" /> **Multimedia Support** — Attach photos, videos, and audio via Cloudinary.
-- <img src="https://unpkg.com/lucide-static@latest/icons/clock.svg" width="14" height="14" /> **Automated Scheduler** — Background cron job checks every minute and triggers delivery.
-- <img src="https://unpkg.com/lucide-static@latest/icons/shield-check.svg" width="14" height="14" /> **JWT Auth** — Secure login and signup with Access and Refresh token management.
-- <img src="https://unpkg.com/lucide-static@latest/icons/users.svg" width="14" height="14" /> **Multiple Recipients** — Send a capsule to multiple email addresses at once.
+- <img src="https://api.iconify.design/lucide/lock.svg?color=%237850ff" width="14" height="14" align="center" /> **Secure Time-Locking** — Messages are sealed and hidden until the chosen unlock date.
+- <img src="https://api.iconify.design/lucide/mail.svg?color=%237850ff" width="14" height="14" align="center" /> **Real Email Delivery** — Powered by the Brevo API; emails land in real inboxes automatically.
+- <img src="https://api.iconify.design/lucide/bell.svg?color=%237850ff" width="14" height="14" align="center" /> **In-App Notifications** — Bell icon alerts when a capsule is delivered.
+- <img src="https://api.iconify.design/lucide/sparkles.svg?color=%237850ff" width="14" height="14" align="center" /> **Premium UI** — Glassmorphism aesthetic built with Tailwind CSS v4 and Lucide Icons.
+- <img src="https://api.iconify.design/lucide/paperclip.svg?color=%237850ff" width="14" height="14" align="center" /> **Multimedia Support** — Attach photos, videos, and audio via Cloudinary.
+- <img src="https://api.iconify.design/lucide/clock.svg?color=%237850ff" width="14" height="14" align="center" /> **Automated Scheduler** — Background cron job checks every minute and triggers delivery.
+- <img src="https://api.iconify.design/lucide/shield-check.svg?color=%237850ff" width="14" height="14" align="center" /> **JWT Auth** — Secure login and signup with Access and Refresh token management.
+- <img src="https://api.iconify.design/lucide/users.svg?color=%237850ff" width="14" height="14" align="center" /> **Multiple Recipients** — Send a capsule to multiple email addresses at once.
 
 ---
 
-## <img src="https://unpkg.com/lucide-static@latest/icons/workflow.svg" width="20" height="20" /> How it Works
+## <img src="https://api.iconify.design/lucide/workflow.svg?color=%237850ff" width="20" height="20" align="center" /> How it Works
 
 The application follows a precise lifecycle to guarantee delivery at the intended time.
 
@@ -49,7 +49,7 @@ This ensures that even if an access token is intercepted, its exposure window is
 
 ---
 
-## <img src="https://unpkg.com/lucide-static@latest/icons/layers.svg" width="20" height="20" /> Tech Stack
+## <img src="https://api.iconify.design/lucide/layers.svg?color=%237850ff" width="20" height="20" align="center" /> Tech Stack
 
 | Layer | Technology |
 |:---|:---|
@@ -62,7 +62,7 @@ This ensures that even if an access token is intercepted, its exposure window is
 
 ---
 
-## <img src="https://unpkg.com/lucide-static@latest/icons/terminal.svg" width="20" height="20" /> Getting Started
+## <img src="https://api.iconify.design/lucide/terminal.svg?color=%237850ff" width="20" height="20" align="center" /> Getting Started
 
 Follow these steps carefully to run the project locally with your own email sender.
 
@@ -209,7 +209,7 @@ Open your browser at: [http://localhost:5173](http://localhost:5173)
 
 ---
 
-## <img src="https://unpkg.com/lucide-static@latest/icons/send.svg" width="20" height="20" /> How to Test Email Delivery
+## <img src="https://api.iconify.design/lucide/send.svg?color=%237850ff" width="20" height="20" align="center" /> How to Test Email Delivery
 
 1. Sign up and log in to the app.
 2. Click **"New Capsule"**.
@@ -222,7 +222,7 @@ Open your browser at: [http://localhost:5173](http://localhost:5173)
 
 ---
 
-## <img src="https://unpkg.com/lucide-static@latest/icons/folder-tree.svg" width="20" height="20" /> Project Structure
+## <img src="https://api.iconify.design/lucide/folder-tree.svg?color=%237850ff" width="20" height="20" align="center" /> Project Structure
 
 ```text
 future-message/
@@ -242,7 +242,7 @@ future-message/
 
 ---
 
-## <img src="https://unpkg.com/lucide-static@latest/icons/wrench.svg" width="20" height="20" /> Troubleshooting
+## <img src="https://api.iconify.design/lucide/wrench.svg?color=%237850ff" width="20" height="20" align="center" /> Troubleshooting
 
 | Problem | Solution |
 |:---|:---|
@@ -253,7 +253,7 @@ future-message/
 
 ---
 
-## <img src="https://unpkg.com/lucide-static@latest/icons/git-pull-request.svg" width="20" height="20" /> Contributing
+## <img src="https://api.iconify.design/lucide/git-pull-request.svg?color=%237850ff" width="20" height="20" align="center" /> Contributing
 
 Contributions are welcome. Please follow these conventions to keep the codebase consistent:
 
@@ -265,7 +265,7 @@ Contributions are welcome. Please follow these conventions to keep the codebase 
 
 ---
 
-## <img src="https://unpkg.com/lucide-static@latest/icons/file-text.svg" width="20" height="20" /> License
+## <img src="https://api.iconify.design/lucide/file-text.svg?color=%237850ff" width="20" height="20" align="center" /> License
 
 MIT License — free to fork, modify, and build upon.
 
