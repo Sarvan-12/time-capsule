@@ -265,4 +265,10 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ---
 
-Created by [Sarvan Salian](https://github.com/Sarvan-12)
+<div align="center">
+  <h3><img src="https://api.iconify.design/lucide/star.svg?color=%237850ff" width="22" height="22" align="absmiddle" /> If you like this project or find it helpful, please consider giving it a star!</h3>
+
+  <a href="https://www.linkedin.com/in/sarvan12/" target="_blank">
+    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn Badge" />
+  </a>
+</div>
