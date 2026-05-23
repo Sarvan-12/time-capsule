@@ -1,44 +1,72 @@
 # Future Message — Digital Time Capsule
 
-> Send a message to your future self, or someone you love. Lock it in time. Deliver it when it matters most.
+> Compose a message. Seal it in time. Deliver it exactly when it matters.
 
-A full-stack **MERN** application that allows users to create, seal, and schedule digital memories — delivered automatically to any email inbox at a future date via real email delivery.
+A full-stack **MERN** application that lets users create, seal, and schedule digital memories — delivered automatically to any email inbox at a precise future date.
+
+---
+
+## Table of Contents
+
+- [Features](#features)
+- [How it Works](#how-it-works)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+- [Project Structure](#project-structure)
+- [How to Test Email Delivery](#how-to-test-email-delivery)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
+- [License](#license)
 
 ---
 
 ## Features
 
 - **Secure Time-Locking** — Messages are sealed and hidden until the chosen unlock date.
-- **Real Email Delivery** — Powered by the Brevo API, emails land in real inboxes automatically.
+- **Real Email Delivery** — Powered by the Brevo API; emails land in real inboxes automatically.
 - **In-App Notifications** — Bell icon alerts when a capsule is delivered.
 - **Premium UI** — Glassmorphism aesthetic built with Tailwind CSS v4 and Lucide Icons.
 - **Multimedia Support** — Attach photos, videos, and audio via Cloudinary.
 - **Automated Scheduler** — Background cron job checks every minute and triggers delivery.
-- **JWT Auth** — Secure login/signup with Access & Refresh tokens.
-- **Multiple Recipients** — Send your capsule to multiple email addresses at once.
+- **JWT Auth** — Secure login and signup with Access and Refresh token management.
+- **Multiple Recipients** — Send a capsule to multiple email addresses at once.
 
 ---
 
 ## How it Works
 
-The Digital Time Capsule follows a precise lifecycle to ensure your memories are delivered exactly when you intended.
+The application follows a precise lifecycle to guarantee delivery at the intended time.
 
-1. **Creation**: Compose your message and attach media. This is saved as a **Draft**.
-2. **Sealing**: Once you "Seal" a capsule, its content becomes immutable. It is now time-locked and cannot be opened by anyone (including you) until the unlock date.
-3. **Background Monitoring**: The server runs a background process (Cron Job) every minute. It scans the database for any sealed capsules whose unlock date has passed.
-4. **Delivery**: When a capsule reaches its unlock time, the server automatically:
-    - Sends the content to all recipient inboxes via the Brevo API.
-    - Creates an in-app notification for the recipients.
-    - Marks the capsule as "Delivered."
+```
+[Draft] -> [Sealed] -> [MongoDB] -> [node-cron Scanner] -> [Brevo API] -> [Inbox]
+```
 
-> **Note on Local Development**: Since the delivery logic runs on your computer, the server (`npm run dev`) must be active for emails to be sent. If your computer is off at the exact unlock time, the server will catch up and send all "missed" emails as soon as you restart it.
+| Stage | Description |
+|:---|:---|
+| **Draft** | User composes a message and optionally attaches media. Saved as a mutable draft. |
+| **Sealed** | User locks the capsule. Content becomes immutable and is hidden from all parties until the unlock date. |
+| **MongoDB** | The sealed capsule is persisted with its unlock timestamp and recipient list. |
+| **node-cron Scanner** | A background process runs every minute, querying the database for any capsule whose unlock date has passed. |
+| **Brevo API** | For each due capsule, the server calls the Brevo REST API to dispatch the email to all recipients. |
+| **Inbox** | Recipients receive the capsule content directly in their email inbox. An in-app notification is simultaneously created. |
+
+### Authentication
+
+The app uses a dual-token JWT strategy for secure session management:
+
+- **Access Token** — Short-lived (15 minutes). Sent with every authenticated API request.
+- **Refresh Token** — Long-lived (7 days). Stored securely and used only to issue a new access token when the current one expires.
+
+This ensures that even if an access token is intercepted, its exposure window is minimal.
+
+> **Note on Local Development:** Delivery runs on your local server. Keep `npm run dev` running for emails to be sent on schedule. If the server was offline when a capsule was due, it will catch up and send all pending emails immediately on the next restart.
 
 ---
 
 ## Tech Stack
 
 | Layer | Technology |
-|---|---|
+|:---|:---|
 | Frontend | React (Vite), Zustand, Tailwind CSS v4 |
 | Backend | Node.js, Express.js |
 | Database | MongoDB + Mongoose |
@@ -231,17 +259,29 @@ future-message/
 ## Troubleshooting
 
 | Problem | Solution |
-|---|---|
-| `MongoDB connection failed` | Make sure MongoDB service is running locally |
-| `BREVO SERVICE Loaded: No` | Check your `server/.env` file exists and has `SMTP_PASS` |
-| Email not received | Check spam folder; verify your Brevo API key starts with `xkeysib-` |
-| Port 5000 in use | Change `PORT=5001` in your `.env` |
+|:---|:---|
+| `MongoDB connection failed` | Make sure the MongoDB service is running locally. |
+| `BREVO SERVICE Loaded: No` | Verify that `server/.env` exists and contains a valid `SMTP_PASS`. |
+| Email not received | Check the spam folder. Confirm your Brevo API key starts with `xkeysib-`. |
+| Port 5000 in use | Set `PORT=5001` in your `.env` file. |
+
+---
+
+## Contributing
+
+Contributions are welcome. Please follow these conventions to keep the codebase consistent:
+
+- **Branch naming** — Use a prefix that reflects the change type: `feat/your-feature`, `fix/bug-description`, `docs/what-you-updated`.
+- **Commit messages** — Follow the Conventional Commits format: `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`. Keep the subject line under 72 characters.
+- **Pull Requests** — Open a PR against `main`. Include a short description of what changed and why. Reference any related issue numbers.
+- **Code style** — Match the existing patterns in the file you are editing. Do not introduce new dependencies without discussion.
+- **Testing** — If your change affects the cron scheduler or email delivery logic, verify end-to-end locally before submitting.
 
 ---
 
 ## License
 
-MIT License — feel free to fork, modify, and build on this project!
+MIT License — free to fork, modify, and build upon.
 
 ---
 
