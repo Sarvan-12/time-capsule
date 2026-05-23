@@ -2,13 +2,13 @@
 
 > Compose a message. Seal it in time. Deliver it exactly when it matters.
 
-A full-stack **MERN** application that lets users create, seal, and schedule digital memories — delivered automatically to any email inbox at a precise future date.
+A full-stack **MERN** application that lets users create, seal, and schedule digital memories — delivered automatically to any email inbox at a precise future date and time.
 
 ---
 
 ## <img src="https://api.iconify.design/lucide/zap.svg?color=%237850ff" width="20" height="20" align="center" /> Features
 
-- <img src="https://api.iconify.design/lucide/lock.svg?color=%237850ff" width="14" height="14" align="center" /> **Secure Time-Locking** — Messages are sealed and hidden until the chosen unlock date.
+- <img src="https://api.iconify.design/lucide/lock.svg?color=%237850ff" width="14" height="14" align="center" /> **Secure Time-Locking** — Messages are sealed and hidden until the chosen unlock date and time.
 - <img src="https://api.iconify.design/lucide/mail.svg?color=%237850ff" width="14" height="14" align="center" /> **Real Email Delivery** — Powered by the Brevo API; emails land in real inboxes automatically.
 - <img src="https://api.iconify.design/lucide/bell.svg?color=%237850ff" width="14" height="14" align="center" /> **In-App Notifications** — Bell icon alerts when a capsule is delivered.
 - <img src="https://api.iconify.design/lucide/sparkles.svg?color=%237850ff" width="14" height="14" align="center" /> **Premium UI** — Glassmorphism aesthetic built with Tailwind CSS v4 and Lucide Icons.
@@ -30,9 +30,9 @@ The application follows a precise lifecycle to guarantee delivery at the intende
 | Stage | Description |
 |:---|:---|
 | **Draft** | User composes a message and optionally attaches media. Saved as a mutable draft. |
-| **Sealed** | User locks the capsule. Content becomes immutable and is hidden from all parties until the unlock date. |
+| **Sealed** | User locks the capsule. Content becomes immutable and is hidden from all parties until the unlock date and time. |
 | **MongoDB** | The sealed capsule is persisted with its unlock timestamp and recipient list. |
-| **node-cron Scanner** | A background process runs every minute, querying the database for any capsule whose unlock date has passed. |
+| **node-cron Scanner** | A background process runs every minute, querying the database for any capsule whose unlock date and time has passed. |
 | **Brevo API** | For each due capsule, the server calls the Brevo REST API to dispatch the email to all recipients. |
 | **Inbox** | Recipients receive the capsule content directly in their email inbox. An in-app notification is simultaneously created. |
 
