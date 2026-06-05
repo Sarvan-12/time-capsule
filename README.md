@@ -4,6 +4,8 @@
 
 A full-stack **MERN** application that lets users create, seal, and schedule digital memories — delivered automatically to any email inbox at a precise future date and time.
 
+[![Live Demo](https://img.shields.io/badge/Live--Demo-7850ff?style=for-the-badge&logo=netlify&logoColor=white)](https://capsuleley.netlify.app/)
+
 ---
 
 ## <img src="https://api.iconify.design/lucide/zap.svg?color=%237850ff" width="20" height="20" align="center" /> Features
