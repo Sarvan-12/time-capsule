@@ -29,7 +29,7 @@ function App() {
     <Router>
       <div className="min-h-screen transition-colors duration-300">
         {isAuthenticated && <Navbar />}
-        <main className={isAuthenticated ? "container mx-auto px-4 py-8" : ""}>
+        <main className={isAuthenticated ? "container mx-auto px-4 pt-8 pb-24 md:pb-8" : ""}>
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/login" element={!isAuthenticated ? <Login /> : <Navigate to="/dashboard" />} />

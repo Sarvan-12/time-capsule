@@ -74,6 +74,28 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+
+      {/* Mobile Bottom Tab Bar */}
+      <div className="flex md:hidden fixed bottom-0 left-0 right-0 z-50 bg-navy-base/90 backdrop-blur-[30px] border-t border-white/5 shadow-2xl">
+        <div className="flex justify-around items-center w-full h-16 px-4">
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            const isActive = location.pathname === item.path;
+            return (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`flex flex-col items-center justify-center gap-1 flex-1 py-1 text-[10px] font-bold tracking-tight transition-all duration-300 ${
+                  isActive ? 'text-white' : 'text-white/45'
+                }`}
+              >
+                <Icon className={`w-5 h-5 ${isActive ? 'text-accent-purple' : ''}`} />
+                <span>{item.name}</span>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
     </nav>
   );
 };
