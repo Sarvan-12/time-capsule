@@ -69,10 +69,10 @@ const deliverCapsules = async () => {
                     <div style="background: #fdfbf7; padding: 25px; border-radius: 8px; border-left: 4px solid #667eea; margin: 20px 0; font-style: italic;">
                       ${capsule.content}
                     </div>
-                    <p style="font-size: 14px; color: #888;">Attached you will find your preserved media assets.</p>
+                    ${capsule.media && capsule.media.length > 0 ? '<p style="font-size: 14px; color: #888;">Attached you will find your preserved media assets.</p>' : ''}
                   </div>
                   <div style="background: #f9fafb; padding: 15px; border-radius: 0 0 10px 10px; text-align: center; font-size: 12px; color: #aaa;">
-                    Created on ${capsule.createdAt.toLocaleDateString()} • Delivered by Aether Vault
+                    Created on ${capsule.createdAt.toLocaleDateString()} • Delivered by Digital Time Capsule
                   </div>
                 </div>
               `,
