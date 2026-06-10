@@ -7,6 +7,7 @@ const {
   refreshToken,
   forgotPassword,
   resetPassword,
+  sendOTP,
 } = require('../controllers/authController');
 
 const router = express.Router();
@@ -20,5 +21,6 @@ router.get('/me', protect, getMe);
 router.post('/refresh', refreshToken);
 router.post('/forgot-password', forgotPassword);
 router.put('/reset-password/:token', resetPassword);
+router.post('/send-otp', sendOTP);
 
 module.exports = router;

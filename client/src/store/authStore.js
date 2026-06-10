@@ -13,8 +13,8 @@ const useAuthStore = create((set) => ({
     return data;
   },
 
-  register: async (name, email, password) => {
-    const { data } = await api.post('/auth/register', { name, email, password });
+  register: async (name, email, password, otp) => {
+    const { data } = await api.post('/auth/register', { name, email, password, otp });
     setAccessToken(data.accessToken);
     set({ user: data.user, isAuthenticated: true, loading: false });
     return data;
@@ -51,6 +51,11 @@ const useAuthStore = create((set) => ({
     const { data } = await api.put(`/auth/reset-password/${token}`, { password });
     setAccessToken(data.accessToken);
     set({ user: data.user, isAuthenticated: true, loading: false });
+    return data;
+  },
+
+  sendOTP: async (email) => {
+    const { data } = await api.post('/auth/send-otp', { email });
     return data;
   },
 }));

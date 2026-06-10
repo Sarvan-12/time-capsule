@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const OTP = require('../models/OTP');
 const jwt = require('jsonwebtoken');
 
 // @desc    Register user
@@ -6,7 +7,11 @@ const jwt = require('jsonwebtoken');
 // @access  Public
 exports.register = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, otp } = req.body;
+
+    if (!name || !email || !password || !otp) {
+      return res.status(400).json({ message: 'Please provide all details including verification code' });
+    }
 
     // Check if user exists
     const userExists = await User.findOne({ email });
@@ -15,12 +20,23 @@ exports.register = async (req, res) => {
       return res.status(400).json({ message: 'User already exists' });
     }
 
+    // Verify OTP code
+    const otpRecord = await OTP.findOne({ email });
+
+    if (!otpRecord || otpRecord.code !== otp) {
+      return res.status(400).json({ message: 'Invalid or expired verification code' });
+    }
+
     // Create user
     const user = await User.create({
       name,
       email,
       password,
+      isVerified: true, // Verification is complete since OTP verified
     });
+
+    // Delete the OTP code
+    await OTP.deleteOne({ email });
 
     sendTokenResponse(user, 201, res);
   } catch (err) {
@@ -237,6 +253,70 @@ exports.resetPassword = async (req, res) => {
     await user.save();
 
     sendTokenResponse(user, 200, res);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+// @desc    Send verification OTP
+// @route   POST /api/auth/send-otp
+// @access  Public
+exports.sendOTP = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ message: 'Please provide an email' });
+    }
+
+    // Check if user already exists
+    const userExists = await User.findOne({ email });
+    if (userExists) {
+      return res.status(400).json({ message: 'User already exists with this email' });
+    }
+
+    // Generate 6-digit numeric OTP code
+    const code = Math.floor(100000 + Math.random() * 900000).toString();
+
+    // Upsert the OTP record (delete existing OTP for this email if any, then save)
+    await OTP.findOneAndUpdate(
+      { email },
+      { code, createdAt: new Date() },
+      { upsert: true, new: true, setDefaultsOnInsert: true }
+    );
+
+    const message = `
+      <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px; background-color: #0f0c1b; color: #ffffff; text-align: center;">
+        <h2 style="color: #a855f7; font-size: 24px; margin-bottom: 24px;">Time Capsule Signup Verification</h2>
+        <p style="font-size: 16px; color: rgba(255,255,255,0.8);">Thank you for creating an account with Digital Time Capsule.</p>
+        <p style="font-size: 16px; color: rgba(255,255,255,0.8);">Use the verification code below to complete your registration:</p>
+        <div style="font-size: 32px; font-weight: bold; color: #a855f7; letter-spacing: 4px; margin: 24px 0; background-color: rgba(255,255,255,0.05); padding: 12px; border-radius: 6px; display: inline-block;">${code}</div>
+        <p style="font-size: 12px; color: rgba(255,255,255,0.4); text-align: center; margin-top: 16px;">This code will expire in 10 minutes.</p>
+      </div>
+    `;
+
+    try {
+      await sendEmail({
+        email,
+        subject: 'Signup Verification Code - Digital Time Capsule',
+        html: message
+      });
+
+      res.status(200).json({
+        success: true,
+        message: 'Verification code sent to your email.'
+      });
+    } catch (mailErr) {
+      console.error('Failed to send OTP email:', mailErr.message);
+      // In development, the email is saved locally anyway, so let it return 200
+      if (process.env.NODE_ENV !== 'production') {
+        return res.status(200).json({
+          success: true,
+          message: 'Verification code generated locally for testing.'
+        });
+      }
+      res.status(500).json({ message: 'Failed to send verification email' });
+    }
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
